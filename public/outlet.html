@@ -1,0 +1,142 @@
+
+<!-- The main window  -->
+<div class="container">
+  <h4 class="pull-right" title="Add Workout" data-toggle="modal" data-target="#Modal"><span class="glyphicon glyphicon-plus" style="color:blue"></span></h4>
+  <h2>Hello {{currentUser}},</h2>
+  <h4>This outlet provides following wokouts:</h4>
+  <div class="container workout-container">
+
+    <div class="jumbotron col-md-4 col-md-offset-1" ng-repeat="workout in workouts">
+      
+      <div class="pull-right">
+        <a ng-click="deleteWorkout(workout._id)"><span class="glyphicon glyphicon-remove-circle" title="Delete Workout">&nbsp;</span></a>
+        <a href=""  >
+            <span class="glyphicon glyphicon-edit" title="Details"></span>
+          </a>
+      </div>
+        <h3>{{workout.name}}&nbsp;<span class="glyphicon glyphicon-euro"></span><span>{{workout.fitcoin_expense}}</span></h3><br>
+      <p>{{workout.from|date:'shortTime'}}&nbsp;-&nbsp;<span>{{workout.to|date:'shortTime'}}</span></p>
+      <p>{{workout.day}}</p>
+      <p>{{workout.instructor}}&nbsp;{{workout.instructor_no}}</p>
+      
+      <small>{{workout.description}}</small> 
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal window for taking workout data  -->
+     <!-- Modal -->
+      <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="WorkoutCtrl">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Add Workout</h4>
+            </div>
+            <div class="modal-body">
+              <form action="" class="" ng-submit="addWorkout(newWorkout)" >
+                <div ng-show="newWorkout.error" class="alert alert-danger row">
+                  <span>{{newWorkout.error.message }}</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="name" class="col-sm-2 control-label">Name: </label>
+                  <div class="col-sm-3 col-sm-offset-5 input-group">
+                    <span class="input-group-addon"><strong>?</<strong></span>
+                    <input name="name" placeholder="Gold gym..." type="text" id="name" class="form-control input-sm" ng-model="newWorkout.name">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="care_taker" class="col-sm-5 control-label">Instructor: </label>
+                  <div class="col-sm-3  col-sm-offset-3 input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                    <input name="date" placeholder="" type="text" id="care_taker" class="form-control input-sm" ng-model="newWorkout.instructor">
+                  </div>
+                </div>
+
+                <div class="form-group">  
+                  <label for="timings" class="col-sm-2 control-label">Timings: </label>
+                    <div class="col-sm-3 col-sm-offset-5 input-group">
+                      <span class="input-group-addon"><span class="glyphicon "><b>From</b></span></span>
+                      <input name="from" placeholder="" type="time" id="timings" class="form-control input-sm" ng-model="newWorkout.from">
+                     <span class="input-group-addon"><span class="glyphicon "><b>To</b></span></span>
+                      <input type="time" id="to" name="to" class="form-control input-sm" ng-model="newWorkout.to">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="day" class="col-sm-2 control-label">Day: </label>
+                  <div class="col-sm-3 col-sm-offset-5 input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    <input name="day" placeholder="" type="text" id="day " class="form-control input-sm" ng-model="newWorkout.day">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="indtrucot_no" class="col-sm-2 control-label">Instructor No: </label>
+                  <div class="col-sm-3 col-sm-offset-5 input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+                    <input name="instructor_no" placeholder="" type="number" id="instructor_no " class="form-control input-sm" ng-model="newWorkout.instructor_no">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="fitcoin_expense" class="col-sm-2 control-label">Fitcoin Required </label>
+                  <div class="col-sm-3 col-sm-offset-5 input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-currency">$</span></span>
+                    <input name="fitcoin_expense" placeholder="" type="number" id="fitcoin_expense " class="form-control input-sm" ng-model="newWorkout.fitcoin_expense">
+                  </div>
+                </div>
+                
+
+                <div class="form-group">
+                  <label for="description" class="col-sm-2 control-label">Description: </label>
+                  <div class="col-sm-3 col-sm-offset-5 input-group">
+                    <span class="input-group-addon"><span class="glyphicon ">*</span></span>
+                    <input name="description" placeholder="" type="text" id="description " class="form-control input-sm" ng-model="newWorkout.description">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="address" class="col-sm-2 control-label">Address: </label>
+                  <div class="col-sm-3 col-sm-offset-5 input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-record"></span></span>
+                    <input name="address" placeholder="" type="text" id="address " class="form-control input-sm" ng-model="newWorkout.address">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="city" class="col-sm-2 control-label">City: </label>
+                  <div class="col-sm-3 col-sm-offset-5 input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                    <input name="city" placeholder="" type="text" id="city " class="form-control input-sm" ng-model="newWorkout.city">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="country" class="col-sm-2 control-label">Country: </label>
+                  <div class="col-sm-3 col-sm-offset-5 input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
+                    <input name="country" placeholder="" type="text" id="country" class="form-control input-sm" ng-model="newWorkout.country">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="pincode" class="col-sm-2 control-label">Pincode: </label>
+                  <div class="col-sm-3 col-sm-offset-5 input-group">
+                    <span class="input-group-addon"><span class="glyphicon">PIN</span></span>
+                    <input name="pincode" placeholder="" type="number" id="pincode " class="form-control input-sm" ng-model="newWorkout.pincode">
+                  </div>
+                </div>
+              
+              <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="Submit" class="btn btn-success" id="submitButton">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>      
+  </div>

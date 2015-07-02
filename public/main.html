@@ -1,56 +1,27 @@
-<!-- Modal window for taking user data such as when: where: what:  -->
-  <div class="container">
-    <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-        Create an Event
-      </button>
 
-     <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Event</h4>
-            </div>
-            <div class="modal-body">
-              <form action="" class="">
-                <div class="form-group">
-                  <label for="what" class="col-sm-2 control-label">What: </label>
-                  <div class="col-sm-3 col-sm-offset-5 input-group">
-                    <span class="input-group-addon"><strong>?</<strong></span>
+<!-- The main window  -->
+<div class="container">
+  <h2>Hello {{currentUser}},</h2>
+  <h4>You own the following Outlets:</h4>
+  <div class="container outlet-container">
 
-                    <input name="event" placeholder="Mom's b'day..." type="text" id="what" class="form-control input-sm">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="when" class="col-sm-2 control-label">When: </label>
-                  <div class="col-sm-3  col-sm-offset-3 input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                    <input name="date" placeholder="" type="date" id="when" class="form-control input-sm">
-                  </div>
-                </div>
-                <div class="form-group">  
-                    <div class="col-sm-3 col-sm-offset-6 input-group">
-                      <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-                      <input name="time" placeholder="" type="time" id="time" class="form-control input-sm">
-                    </div>
-                </div>
-                <div class="form-group">
-                  <label for="where" class="col-sm-2 control-label">Where: </label>
-                  <div class="col-sm-3 col-sm-offset-4 input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-record"></span></span>
-                    <input name="place" placeholder="Hotel ..." type="text" id="where " class="form-control input-sm">
-                  </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="Submit" class="btn btn-success">Submit</button>
-            </div>
-              </form>
-          </div>
-        </div>
-      </div>      
+    <div class="jumbotron col-md-4 col-md-offset-1" ng-repeat="outlet in outlets">
+      
+      <div class="pull-right">
+        <a ng-click="deleteOutlet(outlet._id)"><span class="glyphicon glyphicon-remove-circle" title="delete outlet">&nbsp;</span></a>
+        <a href="/#/outlet/{{outlet._id}}" >
+            <span class="glyphicon glyphicon-edit" title="Details"></span>
+          </a>
+      </div>
+        <h3>{{outlet.name}}</h3><br>
+      <p>{{outlet.from|date:'shortTime'}}&nbsp;-&nbsp;<span>{{outlet.to|date:'shortTime'}}</span></p>
+      <address>
+        {{outlet.address.address}}<br>
+        {{outlet.address.city}}<br>
+        <abbr title="Contact No">{{outlet.care_taker}}</abbr>{{outlet.contact_no}}<br>
+      </address>
+      <small>{{outlet.description}}</small> 
+    </div>
   </div>
-hey this is main page, you should be redirected here after login or successful registration or if u r already logged in.
+</div>
+

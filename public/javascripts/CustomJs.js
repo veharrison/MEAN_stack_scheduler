@@ -4,3 +4,4 @@ $('#slide-activater').on('click', function(){
 		$('.right-slider').css('display:block,position:absolute');
 	})
 });
+	

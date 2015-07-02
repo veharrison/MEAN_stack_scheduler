@@ -11,6 +11,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 //requiring the user model
 var users = require('./models/Users');
+//requiring the outlet and workout model
+var outlets = require('./models/Outlet');
+var workouts = require('./models/Workouts');
 //requiring passport configuration
 var passportConf = require('./config/passport');
 //connection to the scheduler db
