@@ -1,0 +1,66 @@
+2015-07-02 23:26:39,634 [CRITICAL] mongo_connector.oplog_manager:543 - Exception during collection dump
+Traceback (most recent call last):
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\urllib3-1.10.4-py3.4.egg\urllib3\connectionpool.py", line 372, in _make_request
+    httplib_response = conn.getresponse(buffering=True)
+TypeError: getresponse() got an unexpected keyword argument 'buffering'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\urllib3-1.10.4-py3.4.egg\urllib3\connectionpool.py", line 374, in _make_request
+    httplib_response = conn.getresponse()
+  File "F:\INSTALLED PROGRAMS\python\lib\http\client.py", line 1171, in getresponse
+    response.begin()
+  File "F:\INSTALLED PROGRAMS\python\lib\http\client.py", line 351, in begin
+    version, status, reason = self._read_status()
+  File "F:\INSTALLED PROGRAMS\python\lib\http\client.py", line 313, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "F:\INSTALLED PROGRAMS\python\lib\socket.py", line 374, in readinto
+    return self._sock.recv_into(b)
+socket.timeout: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\elasticsearch-1.6.0-py3.4.egg\elasticsearch\connection\http_urllib3.py", line 74, in perform_request
+    response = self.pool.urlopen(method, url, body, retries=False, headers=self.headers, **kw)
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\urllib3-1.10.4-py3.4.egg\urllib3\connectionpool.py", line 597, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\urllib3-1.10.4-py3.4.egg\urllib3\util\retry.py", line 222, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\urllib3-1.10.4-py3.4.egg\urllib3\packages\six.py", line 310, in reraise
+    raise value
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\urllib3-1.10.4-py3.4.egg\urllib3\connectionpool.py", line 544, in urlopen
+    body=body, headers=headers)
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\urllib3-1.10.4-py3.4.egg\urllib3\connectionpool.py", line 376, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\urllib3-1.10.4-py3.4.egg\urllib3\connectionpool.py", line 304, in _raise_timeout
+    raise ReadTimeoutError(self, url, "Read timed out. (read timeout=%s)" % timeout_value)
+urllib3.exceptions.ReadTimeoutError: HTTPConnectionPool(host='localhost', port=9200): Read timed out. (read timeout=10)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\mongo_connector-2.2.dev0-py3.4.egg\mongo_connector\oplog_manager.py", line 495, in do_dump
+    upsert_all(dm)
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\mongo_connector-2.2.dev0-py3.4.egg\mongo_connector\oplog_manager.py", line 479, in upsert_all
+    dm.bulk_upsert(docs_to_dump(namespace), mapped_ns, long_ts)
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\mongo_connector-2.2.dev0-py3.4.egg\mongo_connector\util.py", line 32, in wrapped
+    return f(*args, **kwargs)
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\mongo_connector-2.2.dev0-py3.4.egg\mongo_connector\doc_managers\elastic_doc_manager.py", line 190, in bulk_upsert
+    for ok, resp in responses:
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\elasticsearch-1.6.0-py3.4.egg\elasticsearch\helpers\__init__.py", line 124, in streaming_bulk
+    raise e
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\elasticsearch-1.6.0-py3.4.egg\elasticsearch\helpers\__init__.py", line 120, in streaming_bulk
+    resp = client.bulk(bulk_actions, **kwargs)
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\elasticsearch-1.6.0-py3.4.egg\elasticsearch\client\utils.py", line 69, in _wrapped
+    return func(*args, params=params, **kwargs)
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\elasticsearch-1.6.0-py3.4.egg\elasticsearch\client\__init__.py", line 742, in bulk
+    params=params, body=self._bulk_body(body))
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\elasticsearch-1.6.0-py3.4.egg\elasticsearch\transport.py", line 307, in perform_request
+    status, headers, data = connection.perform_request(method, url, params, body, ignore=ignore, timeout=timeout)
+  File "F:\INSTALLED PROGRAMS\python\lib\site-packages\elasticsearch-1.6.0-py3.4.egg\elasticsearch\connection\http_urllib3.py", line 82, in perform_request
+    raise ConnectionTimeout('TIMEOUT', str(e), e)
+elasticsearch.exceptions.ConnectionTimeout: ConnectionTimeout caused by - ReadTimeoutError(HTTPConnectionPool(host='localhost', port=9200): Read timed out. (read timeout=10))
+2015-07-02 23:26:39,667 [ERROR] mongo_connector.oplog_manager:551 - OplogThread: Failed during dump collection cannot recover! Collection(Database(MongoClient('localhost', 27017), 'local'), 'oplog.rs')
+2015-07-02 23:26:40,608 [ERROR] mongo_connector.connector:302 - MongoConnector: OplogThread <OplogThread(Thread-2, started 4448)> unexpectedly stopped! Shutting down

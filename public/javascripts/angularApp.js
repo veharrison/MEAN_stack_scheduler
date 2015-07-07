@@ -1,7 +1,15 @@
-var app = angular.module ('scheduler',['ui.router']);
+var app = angular.module ('scheduler',['ui.router', 'elasticsearch']);
 
 
 /*FACTORTIES*/
+  //elasticsearch client service
+  app.service('client', function (esFactory) {
+    return esFactory({
+      host: 'localhost:9200/scheduler',
+      log: 'trace'
+    });
+  });
+
   //authorizing service
   app.factory('auth', ['$http', '$window', function($http, $window){
     var auth = {};
@@ -238,7 +246,8 @@ app.controller('NavCtrl',[
   '$state',
   'auth',
   '$rootScope',
-  function($scope,$state, auth, $rootScope){
+  'client',
+  function($scope,$state, auth, $rootScope, client){
     $scope.isLoggedIn = auth.isLoggedIn;
     $scope.currentUser = auth.currentUser;
     $scope.logOut = function(){
@@ -246,6 +255,19 @@ app.controller('NavCtrl',[
       if(!auth.isLoggedIn()){
           $state.go('home');
       }
+    }
+
+    $scope.Search = function(term){
+   
+client.search({
+  q: term
+}).then(function (body) {
+  var hits = body.hits.hits;
+  console.log(hits);
+}, function (error) {
+  console.trace(error.message);
+});
+
     }
   }])
 

@@ -12,6 +12,9 @@
       <script src="javascripts/angular.min.js"></script>
      <!--The ui-router library for using angular routing functionality-->
       <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+      <!-- Libraries to Support elastic search -->
+      <script src="bower_components/elasticsearch/elasticsearch.angular.js"></script>
       
     <script src="javascripts/angularApp.js"></script>
 
@@ -47,6 +50,15 @@
           <a class="navbar-brand" href="/#/main">The Scheduler</a>
         </div>
         <!-- /.navbar-header -->
+        <form class="navbar-form navbar-right" role="search" >
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" ng-model='searchTerm'>
+            </div>
+          </div>
+            <button type="submit" class="btn btn-primary" ng-click="Search(searchTerm)"><span class="glyphicon glyphicon-search"></span></button>
+        </form>
+
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li ng-show="isLoggedIn()"><a href="/#/main">{{currentUser()}}</a></li>
